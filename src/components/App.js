@@ -3,9 +3,34 @@ import initialData from '../data/data.json';
 import { useState } from 'react';
 
 function App() {
-  console.log(initialData);
+  const [clubs, setClubs] = useState('initialData');
+  const [newClubName, setNewClubName] = useState('');
+  const [weekDays, setWeekDays] = useState('')
+  const [weekends, setWeekends]= useState('')
 
-  const [clubs, setClubss] = useState('initialData');
+  const handleNewClubName = (ev) => {
+    setNewClubName(ev.target.value);
+    console.log(newClubName);
+  };
+
+  const handleWeekDays=(ev)=>{
+  setWeekDays(ev.target.value)
+  }
+
+  const handleWeekends=(ev)=>{
+    setWeekends(ev.target.value)
+  }
+
+  
+
+  /* const handleClick = (ev) => {
+    ev.preventDefault(); */
+
+  /* const newClub = {
+      "name": newClubName,
+      "openOnWeekdays": openOrnot
+      "openOnWeekends": weekends
+    }; */
 
   const renderClubs = () =>
     initialData.map((club, index) => {
@@ -24,13 +49,17 @@ function App() {
         </li>
       );
     });
-    //const handleChanges=>
-    //const handleClick
-
 
   return (
     <>
       <h1> Mis clubs</h1>
+      <select name='filter' id='filter'>
+        Mostrar
+      </select>
+      <option value='all'>Todos</option>
+      <option value='just-weekdays'>los que abren entre semana</option>
+      <option value='just-weekends'>los que abren los fines de semana</option>
+
       <ul>{renderClubs()}</ul>
       <form action=''>
         <label htmlFor='ClubName'> Nombre del club</label>
@@ -38,32 +67,64 @@ function App() {
           type='text'
           id='ClubName'
           placeholder='Introducir un nuevo club'
+          onChange={handleNewClubName}
         />
         <p>Abre entre semana</p>
-        <label htmlFor='openOnWeekdays'>Sí
-        <input id='openOnWeekdays' type='radio' value='yes-weekdays' onChange={handleChanges}/>
+        <label htmlFor='openOnWeekdays'>
+          Sí
+          <input
+            id='openOnWeekdays'
+            type='radio'
+            value='yesweekdays'
+            name='weekdays'
+            checked={weekDays === 'yesweekdays'}
+            onChange={handleWeekDays}
+          />
         </label>
         <label htmlFor='NotOpenOnWeekdays' value='no-weekdays'>
           No
-        <input id='NotOpenOnWeekdays' type='radio' onChange={handleChanges} />
+          <input
+            id='NotOpenOnWeekdays'
+            type='radio'
+            value='noweekdays'
+            name='weekdays'
+            checked={weekDays === 'noweekdays'}
+            onChange={handleWeekDays}
+          />
         </label>
         <p>Abre los fines de semana</p>
 
         <label htmlFor='openOnWeekends' value='yes-weekdends'>
           Sí
-        <input id='openOnWeekends' type='radio'  onChange={handleChanges}></input>
-         </label>
+          <input
+            id='openOnWeekends'
+            type='radio'
+            value='yesweekends'
+            name='weekends'
+            checked={weekends === 'yesweekends'}
+            onChange={handleWeekends}
+          ></input>
+        </label>
         <label htmlFor='NotOpenOnWeekends' value='no-weekdends'>
           No
-        <input id='NotOpenOnWeekends' type='radio' onChange={handleChanges}></input>
+          <input
+            id='NotOpenOnWeekends'
+            type='radio'
+            value='noweekends'
+            name='weekends'
+            checked={weekends === 'noweekends'}
+            onChange={handleWeekends}
+          ></input>
         </label>
         <input
-            className="AddNewClub"
-            type="submit"
-            value="Add"
-            onClick={handleClick}></input>
+          className='AddNewClub'
+          type='submit'
+          value='Agregar'
+          /* onclick={handleClick} */
+        >
+          Agregar nuevo club
+        </input>
       </form>
-
     </>
   );
 }
