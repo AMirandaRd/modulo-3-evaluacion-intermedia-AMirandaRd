@@ -3,7 +3,7 @@ import initialData from '../data/data.json';
 import { useState } from 'react';
 
 function App() {
-  const [clubs, setClubs] = useState('initialData');
+  const [clubs, setClubs] = useState(initialData);
   const [newClubName, setNewClubName] = useState('');
   const [weekDays, setWeekDays] = useState('')
   const [weekends, setWeekends]= useState('')
@@ -60,7 +60,7 @@ function App() {
       <option value='just-weekdays'>los que abren entre semana</option>
       <option value='just-weekends'>los que abren los fines de semana</option>
 
-      <ul>{renderClubs()}</ul>
+      {/* <ul>{renderClubs()}</ul> */}
       <form action=''>
         <label htmlFor='ClubName'> Nombre del club</label>
         <input
@@ -72,7 +72,9 @@ function App() {
         <p>Abre entre semana</p>
         <label htmlFor='openOnWeekdays'>
           Sí
-          <input
+         
+        </label>
+        <input
             id='openOnWeekdays'
             type='radio'
             value='yesweekdays'
@@ -80,10 +82,10 @@ function App() {
             checked={weekDays === 'yesweekdays'}
             onChange={handleWeekDays}
           />
-        </label>
         <label htmlFor='NotOpenOnWeekdays' value='no-weekdays'>
           No
-          <input
+        </label>
+        <input
             id='NotOpenOnWeekdays'
             type='radio'
             value='noweekdays'
@@ -91,22 +93,23 @@ function App() {
             checked={weekDays === 'noweekdays'}
             onChange={handleWeekDays}
           />
-        </label>
         <p>Abre los fines de semana</p>
 
         <label htmlFor='openOnWeekends' value='yes-weekdends'>
           Sí
-          <input
+  
+        </label>
+        <input
             id='openOnWeekends'
             type='radio'
             value='yesweekends'
             name='weekends'
             checked={weekends === 'yesweekends'}
             onChange={handleWeekends}
-          ></input>
-        </label>
+          />
+
         <label htmlFor='NotOpenOnWeekends' value='no-weekdends'>
-          No
+          No </label>
           <input
             id='NotOpenOnWeekends'
             type='radio'
@@ -114,16 +117,15 @@ function App() {
             name='weekends'
             checked={weekends === 'noweekends'}
             onChange={handleWeekends}
-          ></input>
-        </label>
+          />
+       
         <input
           className='AddNewClub'
           type='submit'
           value='Agregar'
           /* onclick={handleClick} */
-        >
           Agregar nuevo club
-        </input>
+          />
       </form>
     </>
   );
