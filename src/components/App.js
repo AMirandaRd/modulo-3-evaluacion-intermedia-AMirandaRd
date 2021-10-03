@@ -26,8 +26,8 @@ function App() {
     ev.preventDefault();
     clubs.push({
       name: newClubName,
-      weekDays: weekDays,
-      weekends: weekends,
+      openOnWeekdays: weekDays,
+      openOnWeekend: weekends,
     });
     setClubs([...clubs]);
   };
@@ -39,6 +39,7 @@ function App() {
           <h3>{club.name}</h3>
 
           <p>Abierto entre semana:{club.openOnWeekdays ? 'Sí' : 'No'}</p>
+          
 
           <p>
             Abierto el fin de semana:Abierto entre semana:
@@ -57,7 +58,7 @@ function App() {
         <option value='just-weekdays'>los que abren entre semana</option>
         <option value='just-weekends'>los que abren los fines de semana</option>
       </select>
-      {<ul>{renderClubs()}</ul>}
+      <ul>{renderClubs()}</ul>
       <form onSubmit={handleSubmit}>
         <label htmlFor='ClubName'> Nombre del club</label>
         <input
@@ -68,7 +69,7 @@ function App() {
           onChange={handleNewClubName}
         />
 
-        <label htmlFor=''>¿Abre entre semana?</label>
+        <label htmlFor='openOnWeekdays'>¿Abre entre semana?</label>
         <input
           type='checkbox'
           name='openOnWeekdays'
@@ -77,7 +78,7 @@ function App() {
           onChange={handleWeekDays}
         />
 
-        <label htmlFor=''>¿Abre fines de semana?</label>
+        <label htmlFor='openOnWeekend'>¿Abre fines de semana?</label>
         <input
           type='checkbox'
           name='openOnWeekend'
