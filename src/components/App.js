@@ -7,6 +7,10 @@ function App() {
   const [newClubName, setNewClubName] = useState('');
   const [weekDays, setWeekDays] = useState(false);
   const [weekends, setWeekends] = useState(false);
+  const [filterByOpening, setFilterByOpening] = useState('all')
+
+  const handleFilterByOpening=(ev)=>
+  setFilterByOpening(ev.target.value)
 
   const handleNewClubName = (ev) => {
     setNewClubName(ev.target.value);
@@ -15,11 +19,11 @@ function App() {
 
   const handleWeekDays = (ev) => {
     setWeekDays(ev.target.checked);
-    console.log(weekDays);
+
   };
   const handleWeekends = (ev) => {
     setWeekends(ev.target.checked);
-    console.log(weekends);
+    
   };
 
   const handleSubmit = (ev) => {
@@ -33,7 +37,18 @@ function App() {
   };
 
   const renderClubs = () =>
-    clubs.map((club, index) => {
+    clubs
+    .filter((club)=>{
+      if (filterByOpening ==='weekDays'){
+        return club.openOnWeekdays===true
+      } else if( filterByOpening==='weekends'){
+        return club.openOnWeekend===true
+      }else{
+        return true
+      }
+
+    })
+    .map((club, index) => {
       return (
         <li key={index}>
           <h3>{club.name}</h3>
@@ -42,7 +57,7 @@ function App() {
           
 
           <p>
-            Abierto el fin de semana:Abierto entre semana:
+            Abierto el fin de semana:
             {club.openOnWeekend ? 'Sí' : 'No'}
           </p>
         </li>
@@ -52,11 +67,11 @@ function App() {
   return (
     <>
       <h1> Mis clubs</h1>
-      <select name='filter' id='filter'>
+      <select name='filter' id='filter' value={filterByOpening} onChange={handleFilterByOpening}>
         Mostrar
         <option value='all'>Todos</option>
-        <option value='just-weekdays'>los que abren entre semana</option>
-        <option value='just-weekends'>los que abren los fines de semana</option>
+        <option value='weekDays'>los que abren entre semana</option>
+        <option value='weekends'>los que abren los fines de semana</option>
       </select>
       <ul>{renderClubs()}</ul>
       <form onSubmit={handleSubmit}>
