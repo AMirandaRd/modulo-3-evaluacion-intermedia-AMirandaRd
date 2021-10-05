@@ -1,4 +1,5 @@
 import '../styles/main.scss';
+import '../styles/reset.scss'
 import initialData from '../data/data.json';
 import { useState } from 'react';
 
@@ -50,13 +51,13 @@ function App() {
     })
     .map((club, index) => {
       return (
-        <li key={index}>
-          <h3>{club.name}</h3>
+        <li key={index} className="list">
+          <h3 className="list__title">{club.name}</h3>
 
-          <p>Abierto entre semana:{club.openOnWeekdays ? 'Sí' : 'No'}</p>
+          <p className="list__title--weekdays">Abierto entre semana:{club.openOnWeekdays ? 'Sí' : 'No'}</p>
           
 
-          <p>
+          <p className="list__title--weekends">
             Abierto el fin de semana:
             {club.openOnWeekend ? 'Sí' : 'No'}
           </p>
@@ -66,14 +67,14 @@ function App() {
 
   return (
     <>
-      <h1> Mis clubs</h1>
+      <h1 className="main-title"> Mis clubs</h1>
       <select name='filter' id='filter' value={filterByOpening} onChange={handleFilterByOpening}>
         Mostrar
         <option value='all'>Todos</option>
         <option value='weekDays'>los que abren entre semana</option>
         <option value='weekends'>los que abren los fines de semana</option>
       </select>
-      <ul>{renderClubs()}</ul>
+      <ul className="main-list">{renderClubs()}</ul>
       <form onSubmit={handleSubmit}>
         <label htmlFor='ClubName'> Nombre del club</label>
         <input
